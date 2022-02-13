@@ -5,8 +5,8 @@ from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse,JsonResponse
 # Model Object - Single Student Data
 
-def student_detail(request,pk):
-    stu=Student.objects.get(id = pk)
+def student_detail(request,studentId):
+    stu=Student.objects.get(id = studentId)
     # print(stu)
     serializer = StudentSerializer(stu)
     # print(serializer)
@@ -18,9 +18,9 @@ def student_detail(request,pk):
 
 # Query Set- All Student Data
 def student_list(request):
-    stu=Student.objects.all()
+    stuList=Student.objects.all()
     # print(stu)
-    serializer = StudentSerializer(stu,many=True)
+    serializer = StudentSerializer(stuList,many=True)
     # print(serializer)
     # print(serializer.data)
     # json_data= JSONRenderer().render(serializer.data)
