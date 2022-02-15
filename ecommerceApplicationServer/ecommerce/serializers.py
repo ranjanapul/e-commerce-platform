@@ -15,9 +15,8 @@ class UserSerializer(serializers.Serializer):
 
 
 class ProductSerializer(serializers.Serializer):
-    productId = serializers.AutoField(primary_key=True)
     productName = serializers.CharField(max_length=30)
-    productImageURL = serializers.CharField(max_length=30)
+    productImageURL = serializers.CharField(max_length=80)
     price = serializers.IntegerField()
     productQuantity = serializers.IntegerField()
     productDescription = serializers.CharField(max_length=100)

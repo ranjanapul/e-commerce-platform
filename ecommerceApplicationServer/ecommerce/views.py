@@ -1,11 +1,11 @@
-from django.http import Http404
+from .serializers import UserSerializer, ProductSerializer
+from .tokenExtractor import getToken
+from django.http import Http404, JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from .models import User
-from .serializers import UserSerializer
-from .tokenExtractor import getToken
+from.models import Product
 
 
 class UserDetailsView(APIView):
@@ -16,7 +16,7 @@ class UserDetailsView(APIView):
         except User.DoesNotExist:
             raise Http404
 
-    def get(self, request, format=None):  # Predefined and gets invoked if a GET request is done
+    def get(self, request, format=None):  # gets invoked if GET request is done
         try:
             userId = getToken(request)
         except Exception:
@@ -27,3 +27,13 @@ class UserDetailsView(APIView):
         user = self.get_object(userId)
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Get details of all products.
+
+
+class ProductDetailsView(APIView):
+
+    def get(self, request, format=None):
+        productList = Product.objects.all()
+        serializer = ProductSerializer(productList, many=True)
+        return JsonResponse(serializer.data, safe=False)

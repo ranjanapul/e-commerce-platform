@@ -24,7 +24,7 @@ class User(models.Model):
 class Product(models.Model):
     productId = models.AutoField(primary_key=True)
     productName = models.CharField(max_length=30)
-    productImageURL = models.CharField(max_length=30)
+    productImageURL = models.CharField(max_length=80)
     price = models.IntegerField()
     productQuantity = models.IntegerField()
     productDescription = models.CharField(max_length=100)
