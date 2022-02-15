@@ -1,3 +1,4 @@
+from traceback import print_exception
 from django.db import models
 from datetime import datetime
 from django.core.validators import MinLengthValidator
@@ -18,3 +19,14 @@ class User(models.Model):
     status = models.BooleanField()
     createdTs = models.DateTimeField(default=datetime.now, blank=True)
     # modifiedTs = models.DateTimeField(auto_now=True)
+
+
+class Product(models.Model):
+    productId = models.AutoField(primary_key=True)
+    productName = models.CharField(max_length=30)
+    productImageURL = models.CharField(max_length=30)
+    price = models.IntegerField()
+    productQuantity = models.IntegerField()
+    productDescription = models.CharField(max_length=100)
+    productUnit = models.CharField(max_length=20)
+    createdTs = models.DateTimeField(default=datetime.now, blank=True)
