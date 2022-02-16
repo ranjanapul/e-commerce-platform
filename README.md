@@ -10,6 +10,7 @@ The project is the backend of an ecommerce application containing APIs and Datab
 ## List of Features
 * User registeration and login
 * Product orders
+* Only vendors can add/update/delete products
 * Wishlist and cart
 * Product reviews
 * Report generation
@@ -51,6 +52,7 @@ The project is the backend of an ecommerce application containing APIs and Datab
 | productQuantity    | IntegerField  | quantity of product        |
 | productDescription | CharFIeld     | Description of product     |
 | productUnit        | CharField     | Unit of product            |
+| status             | BooleanField  | status of product          |
 | createdTs          | DateTImeField | Product creation timestamp |
 
 ## Order
@@ -73,6 +75,7 @@ The project is the backend of an ecommerce application containing APIs and Datab
 | userId    | IntegerField       | foreign key               |
 | comment   | CharField          | content of the review     |
 | rating    | IntegerField(enum) | rating given              |
+| status    | BooleanField       | status of review          |
 | productId | IntegerField       | foriegn key               |
 | createdTs | DateTimeFIeld      | review creation timestamp |
 
