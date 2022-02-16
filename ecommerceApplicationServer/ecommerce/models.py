@@ -1,4 +1,3 @@
-from traceback import print_exception
 from django.db import models
 from datetime import datetime
 from django.core.validators import MinLengthValidator
