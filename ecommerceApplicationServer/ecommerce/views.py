@@ -49,6 +49,7 @@ class ProductDetailsView(APIView):
         user = self.get_object(userId)
         if user is not None:
             try:  # if productId is not None ie present in db this block is executed.
+                  # product id is specified as {{domain}}/product?productId=1 in URL
                 productId = request.query_params['productId']
                 product = Product.objects.get(productId=productId)
                 serializer = ProductSerializer(product)
@@ -58,5 +59,18 @@ class ProductDetailsView(APIView):
                 productList = Product.objects.all()
                 serializer = ProductSerializer(productList, many=True)
                 return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request, *args, **kwargs):
+        productData = request.data
+
+        newProduct = Product.objects.create(productName = productData["productName"],
+                                            productImageURL = productData["productImageURL"],
+                                            price = productData["price"],
+                                            productQuantity = productData["productQuantity"],
+                                            productDescription = productData["productDescription"],
+                                            productUnit = productData["productUnit"])
+        newProduct.save()
+        serializer = ProductSerializer(newProduct)
+        return JsonResponse(serializer.data)
 
 
