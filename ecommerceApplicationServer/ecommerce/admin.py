@@ -12,6 +12,6 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['productId', 'productName', 'productImageURL', 'price',
-                    'productQuantity', 'productDescription', 'productUnit',
+    list_display = ['productId','vendorId', 'productName', 'productImageURL', 'price',
+                    'productQuantity', 'productDescription', 'productUnit', 'productStatus',
                     'createdTs']
