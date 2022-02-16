@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ecommerce.views import UserDetailsView, ProductDetailsView
+from ecommerce.views import UserDetailsView, ProductDetailsView, ProductView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user', UserDetailsView.as_view(), name='user'),
-    path('product', ProductDetailsView.as_view(), name='product'),
+    path('product', ProductView.as_view(), name='product'),
+    path('product/<int:productId>', ProductDetailsView.as_view(), name='productDetails'),
 ]
 # About line 23: To use UserDetailsView class's functions.
 # Like get() get invoked solely beacuse the type of request is GET
