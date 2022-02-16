@@ -61,16 +61,24 @@ class ProductDetailsView(APIView):
                 return JsonResponse(serializer.data, safe=False)
 
     def post(self, request, *args, **kwargs):
-        productData = request.data
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+        user = self.get_object(userId)
+        if user is not None:
+            productData = request.data
 
-        newProduct = Product.objects.create(productName = productData["productName"],
-                                            productImageURL = productData["productImageURL"],
-                                            price = productData["price"],
-                                            productQuantity = productData["productQuantity"],
-                                            productDescription = productData["productDescription"],
-                                            productUnit = productData["productUnit"])
-        newProduct.save()
-        serializer = ProductSerializer(newProduct)
-        return JsonResponse(serializer.data)
+            newProduct = Product.objects.create(productName = productData["productName"],
+                                                productImageURL = productData["productImageURL"],
+                                                price = productData["price"],
+                                                productQuantity = productData["productQuantity"],
+                                                productDescription = productData["productDescription"],
+                                                productUnit = productData["productUnit"])
+            newProduct.save()
+            serializer = ProductSerializer(newProduct)
+            return JsonResponse(serializer.data)
 
 
