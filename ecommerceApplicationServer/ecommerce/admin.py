@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import User
+from .models import Product
 # Register your models here.
 
 
@@ -7,3 +8,10 @@ from .models import User
 class UserAdmin(admin.ModelAdmin):
     list_display = ['userId', 'userType', 'name', 'address', 'phoneNumber',
                     'email', 'status', 'createdTs']
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['productId', 'productName', 'productImageURL', 'price',
+                    'productQuantity', 'productDescription', 'productUnit',
+                    'createdTs']

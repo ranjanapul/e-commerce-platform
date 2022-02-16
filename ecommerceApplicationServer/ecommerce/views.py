@@ -1,11 +1,11 @@
-from django.http import Http404
+from .serializers import UserSerializer, ProductSerializer
+from .tokenExtractor import getToken
+from django.http import Http404, JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from .models import User
-from .serializers import UserSerializer
-from .tokenExtractor import getToken
+from.models import Product
 
 
 class UserDetailsView(APIView):
@@ -16,7 +16,7 @@ class UserDetailsView(APIView):
         except User.DoesNotExist:
             raise Http404
 
-    def get(self, request, format=None):  # Predefined and gets invoked if a GET request is done
+    def get(self, request, format=None):  # gets invoked if GET request is done
         try:
             userId = getToken(request)
         except Exception:
@@ -27,3 +27,46 @@ class UserDetailsView(APIView):
         user = self.get_object(userId)
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Get details of all products.
+
+
+class ProductView(APIView):
+
+    def get(self, request, format=None):
+        productList = Product.objects.all()
+        serializer = ProductSerializer(productList, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+class ProductDetailsView(APIView):
+
+    def get(self, request, productId, format=None):
+        product = Product.objects.get(productId=productId)
+        serializer = ProductSerializer(product)
+        return JsonResponse(serializer.data)
+                
+
+    def post(self, request, *args, **kwargs):
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+        user = self.get_object(userId)
+        if user is not None:
+            productData = request.data
+
+            newProduct = Product.objects.create(
+                productName = productData["productName"],
+                productImageURL = productData["productImageURL"],
+                price = productData["price"],
+                productQuantity = productData["productQuantity"],
+                productDescription = productData["productDescription"],
+                productUnit = productData["productUnit"])
+            newProduct.save()
+            serializer = ProductSerializer(newProduct)
+            return JsonResponse(serializer.data)
+
+
