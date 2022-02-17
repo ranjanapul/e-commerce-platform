@@ -15,6 +15,7 @@ class User(models.Model):
     phoneNumber = models.CharField(max_length=10,
                                    validators=[MinLengthValidator(10)])
     email = models.CharField(max_length=30)
+    balance = models.IntegerField()
     status = models.BooleanField()
     createdTs = models.DateTimeField(default=datetime.now, blank=True)
     # modifiedTs = models.DateTimeField(auto_now=True)
@@ -39,10 +40,11 @@ class Order(models.Model):
     vendorId = models.IntegerField()
     orderNumber = models.IntegerField()
     orderedProductQuantity = models.IntegerField()
-    orderedProductUnits = models.IntegerField()
+    orderedProductUnits = models.CharField(max_length=10)
     IN_PROCESS = 'In process'
     DELIVERED = 'Delivered'
     CANCELLED = 'Cancelled'
     CHOICES = ((IN_PROCESS,'In process'), (DELIVERED,'Delivered'), (CANCELLED,'Cancelled'))
     status = models.CharField(max_length=15,choices=CHOICES)
     createdTs = models.DateTimeField(default=datetime.now, blank=True)
+

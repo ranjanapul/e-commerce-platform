@@ -43,9 +43,23 @@ class ProductView(APIView):
             raise Http404
 
     def get(self, request, format=None):
-        productList = Product.objects.all()
-        serializer = ProductSerializer(productList, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+
+        user = self.getUserObject(userId)
+        if user.userType =='Customer':
+            productList = Product.objects.all()
+            serializer = ProductSerializer(productList, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            productList = Product.objects.all().filter(vendorId=user.userId)
+            serializer = ProductSerializer(productList, many=True)
+            return JsonResponse(serializer.data, safe=False)
+            
     
     def post(self, request, *args, **kwargs):
         try:
@@ -165,5 +179,51 @@ class OrderView(APIView):
             orderList = Order.objects.all().filter(customerId=user.userId)
             serializer = OrderSerializer(orderList, many=True)
             return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request, *args, **kwargs):
+    
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+
+        user = self.getUserObject(userId)
+        if user.userType=='Customer':
+            orderData = request.data
+            product = Product.objects.get(productId=orderData['productId'])
+            if (user.balance >= product.price * orderData['orderedProductQuantity'] 
+                and orderData['orderedProductQuantity'] <= product.productQuantity):
+                newOrder = Order.objects.create(
+                    productId = orderData["productId"],
+                    customerId = user.userId,
+                    vendorId = product.vendorId,
+                    orderNumber = orderData["orderNumber"],
+                    orderedProductQuantity = orderData["orderedProductQuantity"],
+                    orderedProductUnits = product.productUnit,
+                    status = "In process"
+                )
+                newOrder.save()
+                serializer = OrderSerializer(newOrder)
+                return JsonResponse(serializer.data)
+            
+            elif user.balance < product.price * orderData['orderedProductQuantity']:
+                return Response(
+                    {"message": "Insufficient Balance"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            
+            else:
+                return Response(
+                    {"message": "Out of Stock"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+        else:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED) 
+
+
                 
  

@@ -8,7 +8,7 @@ from .models import Order
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ['userId', 'userType', 'name', 'address', 'phoneNumber',
-                    'email', 'status', 'createdTs']
+                    'email','balance', 'status', 'createdTs']
 
 
 @admin.register(Product)

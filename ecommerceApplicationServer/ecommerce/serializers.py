@@ -10,6 +10,7 @@ class UserSerializer(serializers.Serializer):
     phoneNumber = serializers.CharField(max_length=10,
                                         validators=[MinLengthValidator(10)])
     email = serializers.CharField(max_length=30)
+    balance= serializers.IntegerField()
     status = serializers.BooleanField()
     createdTs = serializers.DateTimeField(default=datetime.now)
 
@@ -31,6 +32,6 @@ class OrderSerializer(serializers.Serializer):
     vendorId = serializers.IntegerField()
     orderNumber = serializers.IntegerField()
     orderedProductQuantity = serializers.IntegerField()
-    orderedProductUnits = serializers.IntegerField()
+    orderedProductUnits = serializers.CharField(max_length=10)
     status = serializers.CharField(max_length=15)
     createdTs = serializers.DateTimeField(default=datetime.now)
