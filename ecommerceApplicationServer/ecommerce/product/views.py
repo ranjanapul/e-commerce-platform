@@ -1,39 +1,12 @@
 from traceback import print_exception
-from .serializers import UserSerializer, ProductSerializer, OrderSerializer
-from .tokenExtractor import getToken
+from ecommerce.tokenExtractor import getToken
 from django.http import Http404, JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import User
-from.models import Product, Order
-
-
-
-class UserDetailsView(APIView):
-
-    def getUserObject(self, userId):  # Not predefined in APIView class
-        try:
-            return User.objects.get(userId=userId)
-        except User.DoesNotExist:
-            raise Http404
-
-    def get(self, request, format=None):  # gets invoked if GET request is done
-        try:
-            userId = getToken(request)
-        except Exception:
-            return Response(
-                {"message": "invalid token provided."},
-                status=status.HTTP_401_UNAUTHORIZED)
-
-        user = self.getUserObject(userId)
-        print(user.userType)
-        serializer = UserSerializer(user)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-# Get details of all products.
-
-
+from ecommerce.models import User
+from .models import Product
+from .serializers import ProductSerializer
 class ProductView(APIView):
 
     def getUserObject(self, userId):  # Not predefined in APIView class
@@ -137,33 +110,5 @@ class ProductDetailsView(APIView):
         else:
             return Response(
                 {"message": "invalid token provided."},
-                status=status.HTTP_401_UNAUTHORIZED)     
-
-
-
-class OrderView(APIView):
-    
-    def getUserObject(self, userId):  # Not predefined in APIView class
-        try:
-            return User.objects.get(userId=userId)
-        except User.DoesNotExist:
-            raise Http404
-    
-    def get(self, request, format=None):
-        try:
-            userId = getToken(request)
-        except Exception:
-            return Response(
-                {"message": "invalid token provided."},
-                status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
-        if user.userType =='Vendor':
-            orderList = Order.objects.all().filter(vendorId=user.userId)
-            serializer = OrderSerializer(orderList, many=True)
-            return JsonResponse(serializer.data, safe=False)
-        else:
-            orderList = Order.objects.all().filter(customerId=user.userId)
-            serializer = OrderSerializer(orderList, many=True)
-            return JsonResponse(serializer.data, safe=False)
-                
- 
+                status=status.HTTP_401_UNAUTHORIZED)        
+   
