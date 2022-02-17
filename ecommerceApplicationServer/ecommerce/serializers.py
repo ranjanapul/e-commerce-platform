@@ -35,3 +35,12 @@ class OrderSerializer(serializers.Serializer):
     orderedProductUnits = serializers.CharField(max_length=10)
     status = serializers.CharField(max_length=15)
     createdTs = serializers.DateTimeField(default=datetime.now)
+
+class ReviewSerializer(serializers.Serializer):
+    userId = serializers.IntegerField()
+    orderId = serializers.IntegerField()
+    productId = serializers.IntegerField()
+    comment = serializers.CharField(max_length=150)
+    rating = serializers.IntegerField()
+    status = serializers.BooleanField()
+    createdTs = serializers.DateTimeField(default=datetime.now)

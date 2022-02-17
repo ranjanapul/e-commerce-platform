@@ -41,7 +41,7 @@ class ProductView(APIView):
             return User.objects.get(userId=userId)
         except User.DoesNotExist:
             raise Http404
-
+# Vendor cannot see all products. So, need to create separate API for vendor products
     def get(self, request, format=None):
         try:
             userId = getToken(request)
@@ -179,7 +179,7 @@ class OrderView(APIView):
             orderList = Order.objects.all().filter(customerId=user.userId)
             serializer = OrderSerializer(orderList, many=True)
             return JsonResponse(serializer.data, safe=False)
-
+# Need to reduce quantity but will be done in later phase.
     def post(self, request, *args, **kwargs):
     
         try:
@@ -224,6 +224,56 @@ class OrderView(APIView):
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED) 
 
+class OrderDetailsView(APIView):
 
-                
+    def getUserObject(self, userId):  # Not predefined in APIView class
+        try:
+            return User.objects.get(userId=userId)
+        except User.DoesNotExist:
+            raise Http404
+
+    def patch(self,request,orderId,format=None):
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+        user = self.getUserObject(userId)
+        order = Order.objects.get(orderId=orderId)
+        if user.userType == 'Vendor' and order.vendorId == user.userId:
+            data = request.data
+            if data.get("status", order.status) == 'Delivered':
+                order.status = data.get("status", order.status)
+                order.save()
+                serializer = OrderSerializer(order)
+                return JsonResponse(serializer.data)
+            else:
+                return Response(
+                    {"message": "Bad request"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+        elif ((user.userType == 'Vendor' and order.vendorId == user.userId) or (user.userType == 'Customer' and order.customerId == user.userId)):
+            # Vendor cant cancel order yet
+            data = request.data
+            if data.get("status", order.status) == 'Cancelled':
+                order.status = data.get("status", order.status)
+                order.save()
+                serializer = OrderSerializer(order)
+                return JsonResponse(serializer.data)
+            else:
+                return Response(
+                    {"message": "Bad request"},
+                    status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+
+
  

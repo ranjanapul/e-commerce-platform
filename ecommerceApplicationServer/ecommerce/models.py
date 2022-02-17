@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MinLengthValidator
+from django.forms import BooleanField
 
 
 # Create your models here.
@@ -48,3 +49,18 @@ class Order(models.Model):
     status = models.CharField(max_length=15,choices=CHOICES)
     createdTs = models.DateTimeField(default=datetime.now, blank=True)
 
+class Review(models.Model):
+    reviewId = models.AutoField(primary_key=True)
+    userId = models.IntegerField()
+    orderId = models.IntegerField()
+    productId = models.IntegerField()
+    comment = models.CharField(max_length=150)
+    ONESTAR = 1
+    TWOSTAR = 2
+    THREESTAR = 3
+    FOURSTAR = 4
+    FIVESTAR = 5
+    CHOICES = ((ONESTAR,1),(TWOSTAR,2),(THREESTAR,3),(FOURSTAR,4),(FIVESTAR,5))
+    rating = models.IntegerField(choices=CHOICES)
+    status = models.BooleanField()
+    createdTs = models.DateTimeField(default=datetime.now, blank=True)
