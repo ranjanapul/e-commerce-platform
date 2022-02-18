@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ecommerce.views import UserDetailsView, ProductDetailsView, ProductView, OrderView, OrderDetailsView
+from ecommerce.views import ReviewView
 
 
 
@@ -25,7 +26,10 @@ urlpatterns = [
     path('product', ProductView.as_view(), name='product'),
     path('product/<int:productId>', ProductDetailsView.as_view(), name='productDetails'),
     path('order', OrderView.as_view(), name= 'order'),
-    path('order/<int:orderId>',OrderDetailsView.as_view(), name='orderDetails')
+    path('order/<int:orderId>',OrderDetailsView.as_view(), name='orderDetails'),
+    path('product/<int:productId>/review', ReviewView.as_view(), name='review'),
+    # path('product/<int:productId>/review/<int:reviewId>'.ReviewDetailsView.as_view(), name='reviewDetails')
 ]
 # About line 23: To use UserDetailsView class's functions.
 # Like get() get invoked solely beacuse the type of request is GET
+# Line 31: Coming soon

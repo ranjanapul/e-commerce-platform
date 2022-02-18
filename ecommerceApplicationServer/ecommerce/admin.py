@@ -23,8 +23,8 @@ class OrderAdmin(admin.ModelAdmin):
                     'orderedProductQuantity','orderedProductUnits','status', 'createdTs']
 
 @admin.register(Review)
-class ReviewAdmin(Review):
-    list_display = ['reviewId', 'userId', 'orderId', 'productId', 'comment', 'rating', 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['reviewId', 'userId', 'productId', 'comment', 'rating', 
                     'status', 'createdTs']
 
 

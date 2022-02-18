@@ -38,7 +38,6 @@ class OrderSerializer(serializers.Serializer):
 
 class ReviewSerializer(serializers.Serializer):
     userId = serializers.IntegerField()
-    orderId = serializers.IntegerField()
     productId = serializers.IntegerField()
     comment = serializers.CharField(max_length=150)
     rating = serializers.IntegerField()
