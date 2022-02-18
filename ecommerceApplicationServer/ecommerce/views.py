@@ -33,7 +33,7 @@ class UserDetailsView(APIView):
 
     def post(self, request, format=None):
         userData = request.data
-        if userData["userType"] == "Vendor":
+        if userData["userType"] == "Vendor":# Setting vendor balance to always be 0
             newUser = User.objects.create(
             userType = userData["userType"],
             name = userData["name"],
@@ -69,7 +69,7 @@ class UserDetailsView(APIView):
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
         user = self.getUserObject(userId)
-        if user.userType == "Vendor":
+        if user.userType == "Vendor":# Not allowing vendor to update balance
             data = request.data
             user.name = data.get("name",user.name)
             user.address = data.get("address",user.address)
