@@ -1,12 +1,12 @@
 from traceback import print_exception
-from .serializers import UserSerializer, ProductSerializer, OrderSerializer
+from .serializers import UserSerializer, ProductSerializer, OrderSerializer, ReviewSerializer
 from .tokenExtractor import getToken
 from django.http import Http404, JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import User
-from.models import Product, Order
+from.models import Product, Order, Review
 
 
 
@@ -271,6 +271,47 @@ class OrderDetailsView(APIView):
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
+
+
+class ReviewView(APIView):
+
+    def getUserObject(self, userId):  # Not predefined in APIView class
+        try:
+            return User.objects.get(userId=userId)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, productId, format=None):
+        reviewList = Review.objects.all().filter(productId=productId)
+        serializer = ReviewSerializer(reviewList, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request, productId, *args, **kwargs):
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+        user = self.getUserObject(userId)
+        isPlaced = Order.objects.all().filter(customerId=user.userId).filter(productId=productId)
+        if isPlaced.exists():
+            reviewData = request.data
+            newReview = Review.objects.create(
+                userId = user.userId,
+                productId = productId,
+                comment = reviewData["comment"],
+                rating = reviewData["rating"],
+                status = True 
+            )
+            newReview.save()
+            serializer = ReviewSerializer(newReview)
+            return JsonResponse(serializer.data)
+        else:
+            return Response(
+                {"message": "You have not bought this product yet."},
+                status=status.HTTP_401_UNAUTHORIZED)
+
 
 
 

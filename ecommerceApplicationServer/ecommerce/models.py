@@ -52,7 +52,6 @@ class Order(models.Model):
 class Review(models.Model):
     reviewId = models.AutoField(primary_key=True)
     userId = models.IntegerField()
-    orderId = models.IntegerField()
     productId = models.IntegerField()
     comment = models.CharField(max_length=150)
     ONESTAR = 1
