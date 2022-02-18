@@ -31,6 +31,82 @@ class UserDetailsView(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def post(self, request, format=None):
+        userData = request.data
+        if userData["userType"] == "Vendor":
+            newUser = User.objects.create(
+            userType = userData["userType"],
+            name = userData["name"],
+            address = userData["address"],
+            phoneNumber = userData["phoneNumber"],
+            email = userData["email"],
+            balance = 0,
+            status = True    
+            )
+            newUser.save()
+            serializer = UserSerializer(newUser)
+            return JsonResponse(serializer.data)
+        
+        else:
+            newUser = User.objects.create(
+            userType = userData["userType"],
+            name = userData["name"],
+            address = userData["address"],
+            phoneNumber = userData["phoneNumber"],
+            email = userData["email"],
+            balance = userData["balance"],
+            status = True    
+            )
+            newUser.save()
+            serializer = UserSerializer(newUser)
+            return JsonResponse(serializer.data)
+
+    def patch(self, request, format=None):
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+        user = self.getUserObject(userId)
+        if user.userType == "Vendor":
+            data = request.data
+            user.name = data.get("name",user.name)
+            user.address = data.get("address",user.address)
+            user.phoneNumber = data.get("phoneNumber",user.phoneNumber)
+            user.email = data.get("email",user.email)
+            user.save()
+            serializer = UserSerializer(user)
+            return JsonResponse(serializer.data)
+        else:
+            data = request.data
+            user.name = data.get("name",user.name)
+            user.address = data.get("address",user.address)
+            user.phoneNumber = data.get("phoneNumber",user.phoneNumber)
+            user.email = data.get("email",user.email)
+            user.balance = data.get("balance",user.balance)
+            user.save()
+            serializer = UserSerializer(user)
+            return JsonResponse(serializer.data)
+
+
+    def delete(self, request, format=None):
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+        user = self.getUserObject(userId)
+        data = request.data
+        user.status = False
+        user.save()
+        serializer = UserSerializer(user)
+        return JsonResponse(serializer.data)
+
+
+
+
 # Get details of all products.
 
 
@@ -254,23 +330,31 @@ class OrderDetailsView(APIView):
                     status=status.HTTP_404_NOT_FOUND
                 )
 
-        elif ((user.userType == 'Vendor' and order.vendorId == user.userId) or (user.userType == 'Customer' and order.customerId == user.userId)):
-            # Vendor cant cancel order yet
-            data = request.data
-            if data.get("status", order.status) == 'Cancelled':
-                order.status = data.get("status", order.status)
-                order.save()
-                serializer = OrderSerializer(order)
-                return JsonResponse(serializer.data)
-            else:
-                return Response(
-                    {"message": "Bad request"},
-                    status=status.HTTP_404_NOT_FOUND
-            )
         else:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
+
+    def delete(self, request, orderId, format=None):
+        try:
+            userId = getToken(request)
+        except Exception:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+        user = self.getUserObject(userId)
+        order = Order.objects.get(orderId=orderId)
+        if((user.userType == 'Vendor' and order.vendorId == user.userId) or (user.userType == 'Customer' and order.customerId == user.userId)):
+                order.status = "Cancelled"
+                order.save()
+                serializer = OrderSerializer(order)
+                return JsonResponse(serializer.data)
+        else:
+            return Response(
+                {"message": "invalid token provided."},
+                status=status.HTTP_401_UNAUTHORIZED)
+
+        
 
 
 class ReviewView(APIView):
