@@ -1,0 +1,1124 @@
+{
+	"info": {
+		"_postman_id": "372c61d3-3fa9-4ba3-9a98-99c6408e1b59",
+		"name": "ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/user",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userType\":\"Vendor\",\r\n    \"name\":\"Shyam\",\r\n    \"address\":\"Address6\",\r\n    \"phoneNumber\":\"8573246731\",\r\n    \"email\":\"Rohit@gmail.com\",\r\n    \"balance\":20000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/user",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH User",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"balance\":10000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/user",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/user",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GET all products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer 1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/product",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET all products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/product",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"product"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 16 Feb 2022 08:53:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1842"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"productName\": \"IPhone\",\n        \"productImageURL\": \"https://via.placeholder.com/150\",\n        \"price\": 100000,\n        \"productQuantity\": 40,\n        \"productDescription\": \"Description of IPhone\",\n        \"productUnit\": \"pieces\",\n        \"createdTs\": \"2022-02-16T02:53:09Z\"\n    },\n    {\n        \"productName\": \"Football\",\n        \"productImageURL\": \"https://via.placeholder.com/150\",\n        \"price\": 500,\n        \"productQuantity\": 30,\n        \"productDescription\": \"Description of Football\",\n        \"productUnit\": \"pieces\",\n        \"createdTs\": \"2022-02-16T02:54:41Z\"\n    },\n    {\n        \"productName\": \"T-Shirt\",\n        \"productImageURL\": \"https://via.placeholder.com/150\",\n        \"price\": 700,\n        \"productQuantity\": 50,\n        \"productDescription\": \"Description of T-Shirt\",\n        \"productUnit\": \"pieces\",\n        \"createdTs\": \"2022-02-16T02:55:46Z\"\n    },\n    {\n        \"productName\": \"Maggi\",\n        \"productImageURL\": \"https://via.placeholder.com/150\",\n        \"price\": 50,\n        \"productQuantity\": 100,\n        \"productDescription\": \"Description of Maggi\",\n        \"productUnit\": \"pieces\",\n        \"createdTs\": \"2022-02-16T02:57:12Z\"\n    },\n    {\n        \"productName\": \"Cabbage\",\n        \"productImageURL\": \"https://via.placeholder.com/150\",\n        \"price\": 60,\n        \"productQuantity\": 15,\n        \"productDescription\": \"Description of Cabbage\",\n        \"productUnit\": \"kg\",\n        \"createdTs\": \"2022-02-16T02:58:24Z\"\n    },\n    {\n        \"productName\": \"Bedsheet\",\n        \"productImageURL\": \"https://via.placeholder.com/150\",\n        \"price\": 200,\n        \"productQuantity\": 20,\n        \"productDescription\": \"Description of Bedsheet\",\n        \"productUnit\": \"pieces\",\n        \"createdTs\": \"2022-02-16T02:59:01Z\"\n    },\n    {\n        \"productName\": \"Cricket Bat\",\n        \"productImageURL\": \"https://via.placeholder.com/150\",\n        \"price\": 400,\n        \"productQuantity\": 40,\n        \"productDescription\": \"Description of Cricket Bat\",\n        \"productUnit\": \"pieces\",\n        \"createdTs\": \"2022-02-16T06:51:57.944634Z\"\n    },\n    {\n        \"productName\": \"AC\",\n        \"productImageURL\": \"https://via.placeholder.com/150\",\n        \"price\": 10000,\n        \"productQuantity\": 20,\n        \"productDescription\": \"Description of AC\",\n        \"productUnit\": \"pieces\",\n        \"createdTs\": \"2022-02-16T07:06:14.354391Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "POST Product",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\":\"Tubelight\",\r\n    \"productImageURL\":\"https://via.placeholder.com/150\",\r\n    \"price\":10000,\r\n    \"productQuantity\":20,\r\n    \"productDescription\":\"Description of Tubelight\",\r\n    \"productUnit\":\"pieces\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/product",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "POST Product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 6",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productName\":\"Tubelight\",\r\n    \"productImageURL\":\"https://via.placeholder.com/150\",\r\n    \"price\":10000,\r\n    \"productQuantity\":20,\r\n    \"productDescription\":\"Description of Tubelight\",\r\n    \"productUnit\":\"pieces\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/product",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"product"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 16 Feb 2022 13:18:43 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "240"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productName\": \"Tubelight\",\n    \"productImageURL\": \"https://via.placeholder.com/150\",\n    \"price\": 10000,\n    \"productQuantity\": 20,\n    \"productDescription\": \"Description of Tubelight\",\n    \"productUnit\": \"pieces\",\n    \"createdTs\": \"2022-02-16T18:48:43.347072Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "GET Product By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/product/2",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"product",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET Product By ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/product/2",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"product",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 16 Feb 2022 08:57:29 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "229"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productName\": \"Football\",\n    \"productImageURL\": \"https://via.placeholder.com/150\",\n    \"price\": 500,\n    \"productQuantity\": 30,\n    \"productDescription\": \"Description of Football\",\n    \"productUnit\": \"pieces\",\n    \"createdTs\": \"2022-02-16T02:54:41Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "PATCH Product",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\":9000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/product/3",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"product",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "PATCH Product",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"price\":9000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/product/3",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"product",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 16 Feb 2022 19:17:11 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PATCH, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "277"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"vendorId\": 4,\n    \"productName\": \"Tubelight\",\n    \"productImageURL\": \"https://via.placeholder.com/150\",\n    \"price\": 9000,\n    \"productQuantity\": 20,\n    \"productDescription\": \"Description of Tubelight\",\n    \"productUnit\": \"pieces\",\n    \"productStatus\": true,\n    \"createdTs\": \"2022-02-17T00:44:15.986171Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productStatus\":\"False\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/product/3",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"product",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "DELETE Product",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productStatus\":\"False\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/product/3",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"product",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 16 Feb 2022 19:39:43 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "278"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"vendorId\": 4,\n    \"productName\": \"Tubelight\",\n    \"productImageURL\": \"https://via.placeholder.com/150\",\n    \"price\": 9000,\n    \"productQuantity\": 20,\n    \"productDescription\": \"Description of Tubelight\",\n    \"productUnit\": \"pieces\",\n    \"productStatus\": false,\n    \"createdTs\": \"2022-02-17T00:44:15.986171Z\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "POST order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 3",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":3,\r\n    \"orderNumber\":1,\r\n    \"orderedProductQuantity\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/order",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "POST order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\":1,\r\n    \"orderNumber\":2,\r\n    \"orderedProductQuantity\":3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/order",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"order"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Feb 2022 18:50:54 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Insufficient Balance\"\n}"
+						}
+					]
+				},
+				{
+					"name": "GET order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/order",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET order",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 4",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/order",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"order"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Feb 2022 19:00:59 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "396"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"productId\": 3,\n        \"customerId\": 1,\n        \"vendorId\": 4,\n        \"orderNumber\": 4,\n        \"orderedProductQuantity\": 1,\n        \"orderedProductUnits\": \"pieces\",\n        \"status\": \"In process\",\n        \"createdTs\": \"2022-02-18T00:29:08.512179Z\"\n    },\n    {\n        \"productId\": 3,\n        \"customerId\": 3,\n        \"vendorId\": 4,\n        \"orderNumber\": 4,\n        \"orderedProductQuantity\": 1,\n        \"orderedProductUnits\": \"pieces\",\n        \"status\": \"In process\",\n        \"createdTs\": \"2022-02-18T00:30:33.731976Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "PATCH order by ID",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\":\"Delivered\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/order/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "PATCH order",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\":\"Delivered\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/order/4",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"order",
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 17 Feb 2022 21:43:55 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "PATCH, DELETE, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "195"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productId\": 3,\n    \"customerId\": 3,\n    \"vendorId\": 4,\n    \"orderNumber\": 4,\n    \"orderedProductQuantity\": 1,\n    \"orderedProductUnits\": \"pieces\",\n    \"status\": \"Delivered\",\n    \"createdTs\": \"2022-02-18T00:30:33.731976Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/order/1",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "POST review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"Comment on a product\",\r\n    \"rating\":4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/product/4/review",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"product",
+								"4",
+								"review"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "POST review",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"comment\":\"Comment on a product\",\r\n    \"rating\":4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/product/4/review",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"product",
+										"4",
+										"review"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 18 Feb 2022 13:19:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "51"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"You have not bought this product yet.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "GET review",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/product/3/review",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"product",
+								"3",
+								"review"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
