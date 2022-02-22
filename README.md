@@ -157,7 +157,6 @@ The project is the backend of an ecommerce application containing APIs and Datab
 | 31         |          |                | DELETE | /cart-entry/{entryId}                  | remove a cart entry                                      | L POC         |
 
 * The above table consists of all required access patterns for the app.
-* Currently implemented pattern number 1,5,6,7
 * H - High
 * M - Medium
 * L - Low
