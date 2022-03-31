@@ -63,12 +63,12 @@ class UserDetailsView(APIView):
 
     def patch(self, request, format=None):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         if user.userType == "Vendor":# Not allowing vendor to update balance
             data = request.data
             user.name = data.get("name",user.name)
