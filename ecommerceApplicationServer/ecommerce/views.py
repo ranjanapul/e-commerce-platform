@@ -92,12 +92,12 @@ class UserDetailsView(APIView):
 
     def delete(self, request, format=None):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         data = request.data
         user.status = False
         user.save()
@@ -112,21 +112,21 @@ class UserDetailsView(APIView):
 
 class ProductView(APIView):
 
-    def getUserObject(self, userId):  # Not predefined in APIView class
+    def getUserObject(self, email):  # Not predefined in APIView class
         try:
-            return User.objects.get(userId=userId)
+            return User.objects.get(email=email)
         except User.DoesNotExist:
             raise Http404
 # Vendor cannot see all products. So, need to create separate API for vendor products
     def get(self, request, format=None):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
 
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         if user.userType =='Customer':
             productList = Product.objects.all()
             serializer = ProductSerializer(productList, many=True)
@@ -139,13 +139,13 @@ class ProductView(APIView):
     
     def post(self, request, *args, **kwargs):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
 
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         if user.userType =='Vendor':
             productData = request.data
 
@@ -170,9 +170,9 @@ class ProductView(APIView):
 
 class ProductDetailsView(APIView):
 
-    def getUserObject(self, userId):  # Not predefined in APIView class
+    def getUserObject(self, email):  # Not predefined in APIView class
         try:
-            return User.objects.get(userId=userId)
+            return User.objects.get(email=email)
         except User.DoesNotExist:
             raise Http404
 
@@ -185,12 +185,12 @@ class ProductDetailsView(APIView):
 
     def patch(self,request,productId,format=None):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         product = Product.objects.get(productId=productId)
         if user.userType == 'Vendor' and product.vendorId == user.userId:
             data=request.data
@@ -211,12 +211,12 @@ class ProductDetailsView(APIView):
              
     def delete(self,request,productId,format=None):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         product = Product.objects.get(productId=productId)
         if user.userType == 'Vendor' and product.vendorId == user.userId:
             data=request.data
@@ -233,20 +233,20 @@ class ProductDetailsView(APIView):
 
 class OrderView(APIView):
     
-    def getUserObject(self, userId):  # Not predefined in APIView class
+    def getUserObject(self, email):  # Not predefined in APIView class
         try:
-            return User.objects.get(userId=userId)
+            return User.objects.get(email=email)
         except User.DoesNotExist:
             raise Http404
     
     def get(self, request, format=None):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         if user.userType =='Vendor':
             orderList = Order.objects.all().filter(vendorId=user.userId)
             serializer = OrderSerializer(orderList, many=True)
@@ -259,13 +259,13 @@ class OrderView(APIView):
     def post(self, request, *args, **kwargs):
     
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
 
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         if user.userType=='Customer':
             orderData = request.data
             product = Product.objects.get(productId=orderData['productId'])
