@@ -302,20 +302,20 @@ class OrderView(APIView):
 
 class OrderDetailsView(APIView):
 
-    def getUserObject(self, userId):  # Not predefined in APIView class
+    def getUserObject(self, email):  # Not predefined in APIView class
         try:
-            return User.objects.get(userId=userId)
+            return User.objects.get(email=email)
         except User.DoesNotExist:
             raise Http404
 
     def patch(self,request,orderId,format=None):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         order = Order.objects.get(orderId=orderId)
         if user.userType == 'Vendor' and order.vendorId == user.userId:
             data = request.data
@@ -337,12 +337,12 @@ class OrderDetailsView(APIView):
 
     def delete(self, request, orderId, format=None):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         order = Order.objects.get(orderId=orderId)
         if((user.userType == 'Vendor' and order.vendorId == user.userId) or (user.userType == 'Customer' and order.customerId == user.userId)):
                 order.status = "Cancelled"
@@ -359,9 +359,9 @@ class OrderDetailsView(APIView):
 
 class ReviewView(APIView):
 
-    def getUserObject(self, userId):  # Not predefined in APIView class
+    def getUserObject(self, email):  # Not predefined in APIView class
         try:
-            return User.objects.get(userId=userId)
+            return User.objects.get(email=email)
         except User.DoesNotExist:
             raise Http404
 
@@ -372,12 +372,12 @@ class ReviewView(APIView):
 
     def post(self, request, productId, *args, **kwargs):
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         isPlaced = Order.objects.all().filter(customerId=user.userId).filter(productId=productId)
         if isPlaced.exists():
             reviewData = request.data
