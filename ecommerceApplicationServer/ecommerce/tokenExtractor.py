@@ -26,5 +26,5 @@ def getToken(request):
 
 
 
-    return 1
+    return email
 # Get userid from IDToken. Also print on webpage.

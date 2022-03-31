@@ -12,21 +12,21 @@ from.models import Product, Order, Review
 
 class UserDetailsView(APIView):
 
-    def getUserObject(self, userId):  # Not predefined in APIView class
+    def getUserObject(self, email):  # Not predefined in APIView class
         try:
-            return User.objects.get(userId=userId)
+            return User.objects.get(email=email)
         except User.DoesNotExist:
             raise Http404
 
     def get(self, request, format=None):  # gets invoked if GET request is done
         try:
-            userId = getToken(request)
+            email = getToken(request)
         except Exception:
             return Response(
                 {"message": "invalid token provided."},
                 status=status.HTTP_401_UNAUTHORIZED)
 
-        user = self.getUserObject(userId)
+        user = self.getUserObject(email)
         print(user.userType)
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
