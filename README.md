@@ -163,6 +163,5 @@ The project is the backend of an ecommerce application containing APIs and Datab
 * POC - Proof of concept
 
 # Authentication
-* Will be implementing Oauth in the future. Currently, userId is directly passed in the authorization header instead of JWT token because:
-1) I don't have complete understanding of Oauth
-2) So, doing what I know and leaaring other things in the process.
+* Used Firebase authentication
+
