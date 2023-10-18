@@ -64,3 +64,4 @@ class Review(models.Model):
     status = models.BooleanField()
     createdTs = models.DateTimeField(default=datetime.now, blank=True)
 # test
+# jgndfjonfdvjnsd
