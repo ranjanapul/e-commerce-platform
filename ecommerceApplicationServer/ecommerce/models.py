@@ -63,3 +63,4 @@ class Review(models.Model):
     rating = models.IntegerField(choices=CHOICES)
     status = models.BooleanField()
     createdTs = models.DateTimeField(default=datetime.now, blank=True)
+# test
