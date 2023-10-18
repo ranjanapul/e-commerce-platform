@@ -22,7 +22,7 @@ from ecommerce.views import ReviewView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user', UserDetailsView.as_view(), name='user'),
+    path('user', UserDetailsView.as_view(), name='user'), # Name is used to refer to it on the frontend
     path('product', ProductView.as_view(), name='product'),
     path('product/<int:productId>', ProductDetailsView.as_view(), name='productDetails'),
     path('order', OrderView.as_view(), name= 'order'),
